@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="level2_task1.css">
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="btn" data-value="(">(</button>
+      <button class="btn" data-value=")">)</button>
+      <button class="btn" data-value="ans">ans</button>
+      <button class="btn" data-value="del">del</button>
+      <button class="btn" data-value="clear">clear</button>
+
+      <button class="btn" data-value="7">7</button>
+      <button class="btn" data-value="8">8</button>
+      <button class="btn" data-value="9">9</button>
+      <button class="btn" data-value="%">%</button>
+      <button class="btn" data-value="√">√</button>
+
+      <button class="btn" data-value="4">4</button>
+      <button class="btn" data-value="5">5</button>
+      <button class="btn" data-value="6">6</button>
+      <button class="btn" data-value="*">*</button>
+      <button class="btn" data-value="/">/</button>
+
+      <button class="btn" data-value="1">1</button>
+      <button class="btn" data-value="2">2</button>
+      <button class="btn" data-value="3">3</button>
+      <button class="btn" data-value="-">-</button>
+      <button class="btn" data-value="+">+</button>
+
+      <button class="btn" data-value="0">0</button>
+      <button class="btn" data-value=".">.</button>
+      <button class="btn" data-value="C">C</button>
+      <button class="btn" id="enter" data-value="=">enter</button>
+    </div>
+  </div>
+  <script>
+  const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('.btn');
+    let displayValue = '';
+    let expression = '';
+    let answer = '';
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const value = button.getAttribute('data-value');
+
+        if (value === 'C') {
+          displayValue = '';
+          expression = '';
+          display.textContent = '0';
+        } else if (value === 'del') {
+          expression = expression.slice(0, -1);
+          display.textContent = expression || '0';
+        } else if (value === 'clear') {
+          expression = '';
+          display.textContent = '0';
+        } else if (value === '=') {
+          try {
+            answer = eval(expression);
+            display.textContent = `${expression} = ${answer}`;
+            expression = answer.toString(); 
+          } catch (e) {
+            display.textContent = 'Error';
+            expression = '';
+          }
+        } else if (value === '√') {
+          const number = parseFloat(expression);
+          if (!isNaN(number)) {
+            expression = Math.sqrt(number).toString();
+            display.textContent = expression;
+          }        
+        } else if (['+', '-', '*', '/', '%'].includes(value)) {
+          expression += value;
+          display.textContent = expression;
+        } else {
+          expression += value;
+          display.textContent = expression;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

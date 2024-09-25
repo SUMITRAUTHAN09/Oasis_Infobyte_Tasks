@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Authentication</title>
+        <link rel="stylesheet" href="level2_task4.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>LogIn</h1>
+            <div class="name">
+                <label for="user-name">User name</label>
+                <input id="user-name" type="text" placeholder="Name">
+            </div>
+            <div class="password">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="********">
+            </div>
+            <button id="btn">LogIn</button>
+        </div>
+    </body>
+    <script>
+        const validUsername = "user";
+        const validPassword = "user123";
+
+        document.getElementById("btn").addEventListener("click", function() {
+        const enteredUsername = document.getElementById("user-name").value;
+        const enteredPassword = document.getElementById("password").value;
+
+        if (enteredUsername === validUsername && enteredPassword === validPassword) {
+            alert("Login successful! Welcome, " + enteredUsername + ".");
+        } else {
+            alert("Invalid username or password. Please try again.");
+        }
+        });
+
+    </script>
+</html>

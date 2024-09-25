@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Daily Tasks Monitor</title>
+        <link rel="stylesheet" href="level2_task3.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Daily Tasks</h1>
+            <div class="submit-tasks">
+                <input id="input-task" type="text" placeholder="Enter task">
+                <button id="submit-button">Add</button>
+            </div>
+            <h2>Pending Tasks</h2>
+            <ul id="pending-tasks"></ul>
+            <h3>Completed Tasks</h3>
+            <ul id="completed-tasks"></ul>
+        </div>
+        <script src="app.js"></script>
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const taskInput = document.getElementById('input-task');
+            const submitButton = document.getElementById('submit-button');
+            const pendingTasksList = document.getElementById('pending-tasks');
+            const completedTasksList = document.getElementById('completed-tasks');
+        
+            submitButton.addEventListener('click', function() {
+                const task = taskInput.value.trim();
+                if (task !== "") {
+                    addTask(task);
+                    taskInput.value = "";  
+                }
+            });
+        
+            function addTask(task) {
+                const li = document.createElement('li');
+                const taskText = document.createElement('span');
+                taskText.textContent = task;
+        
+                const completeBtn = document.createElement('button');
+                completeBtn.textContent = 'Complete';
+                completeBtn.addEventListener('click', function() {
+                    completeTask(li, task);
+                });
+        
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', function() {
+                    deleteTask(li);
+                });
+        
+                li.appendChild(taskText);
+                li.appendChild(completeBtn);
+                li.appendChild(deleteBtn);
+        
+                pendingTasksList.appendChild(li);
+            }
+        
+            function completeTask(taskItem, task) {
+                pendingTasksList.removeChild(taskItem);
+        
+                const li = document.createElement('li');
+                const taskText = document.createElement('span');
+                taskText.textContent = task;
+                taskText.classList.add('completed');
+        
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', function() {
+                    deleteTask(li);
+                });
+        
+                li.appendChild(taskText);
+                li.appendChild(deleteBtn);
+        
+                completedTasksList.appendChild(li);
+            }
+        
+            function deleteTask(taskItem) {
+                taskItem.parentNode.removeChild(taskItem);
+            }
+        });
+    </script>
+</html>
